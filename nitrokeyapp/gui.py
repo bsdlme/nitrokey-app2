@@ -23,6 +23,7 @@ from nitrokeyapp.error_dialog import ErrorDialog
 from nitrokeyapp.information_box import InfoBox
 from nitrokeyapp.nk3_button import Nk3Button
 from nitrokeyapp.overview_tab import OverviewTab
+from nitrokeyapp.settings_tab import SettingsTab
 
 # from nitrokeyapp.loading_screen import LoadingScreen
 from nitrokeyapp.qt_utils_mix_in import QtUtilsMixIn
@@ -98,7 +99,8 @@ class GUI(QtUtilsMixIn, QtWidgets.QMainWindow):
         # self.about_dialog = AboutDialog(log_file, qt_app)
         self.touch_dialog = TouchDialog(self)
         self.overview_tab = OverviewTab(self.info_box, self)
-        self.views: list[DeviceView] = [self.overview_tab, SecretsTab(self)]
+        self.settings_tab = SettingsTab(self)
+        self.views: list[DeviceView] = [self.overview_tab, SecretsTab(self), self.settings_tab]
         for view in self.views:
             if view.worker:
                 view.worker.busy_state_changed.connect(self.set_busy)
